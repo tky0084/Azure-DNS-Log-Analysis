@@ -1,0 +1,211 @@
+## Spokeネットワーク作成
+
+<details><summary>詳細を見る</summary><div>
+
+## Spoke環境用のリソースグループの作成<br>
+Azure Portalから「リソース グループ」と検索し、「作成」を押下する<br>
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/0df90f7d-fd46-4b96-b001-b76bd2fbdab0" /><br><br>
+
+サブスクリプション名、リソースグループ名、作成するリージョンを入力して、作成する<br>
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/5d1a16a0-b7e0-43a3-a563-2afa3b9edb3c" /><br>
+
+</div></details>
+
+<br>
+
+## 仮想ネットワークの作製
+
+<details><summary>詳細を見る</summary><div>
+
+Azure Portalから、「仮想ネットワーク」を検索し、作成を押下する
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/5a7f87d9-8ca9-40b1-8b81-3e5bb1dde679" />
+
+先ほど作成したリソースグループを指定し、任意の仮想ネットワーク名と、リソースグループと同じリージョンを選択する<br>
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/89958c9f-172d-4453-a1ed-3809ac4100f9" /><br><br>
+
+IPアドレスタブにて、作成する仮想ネットワークのIP範囲を設定する<br>
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/e9c60389-cab2-4722-82d0-1a032efa7414" /><br><br>
+
+レビューと作成タブにて、内容に問題なければ「作成」を押下する<br>
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/174c95e8-72bd-4f5b-bf34-1f74ba446391" /><br><br>
+
+このように、デプロイ進行中の画面が作成される。<br>
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/b88ec8b8-2e56-4269-b617-9ed063771794" /><br><br>
+
+デプロイが完了すると、このような画面が出てきます<br>
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/c257275a-5b0a-42ba-8e20-36783b06d7cd" /><br>
+
+</div></details>
+
+<br>
+
+## 仮想マシンの作製
+
+<details><summary>詳細を見る</summary><div>
+
+Azure Portalで「仮想マシン」を検索し、「作成」を押下する
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/d1d7ce42-8310-48c8-b181-f128d66a7a0b" />
+
+基本タブにて、次の通りに入力する
+| 項目 | 入力方法 |
+| -- | -- |
+| サブスクリプション | Spoke環境のリソースグループがあるサブスクリプション |
+| リソース グループ | Spokeの仮想ネットワークがあるリソースグループ |
+| 仮想マシン名 | 任意の仮想マシン名 |
+| リージョン | (Asia Pacific) Japan East |
+| 可用性オプション | インフラストラクチャ冗長は必要ありません |
+| セキュリティの種類 | Standard |
+| イメージ | Windows Server 2025 Datacenter: Azure Edition - x64 Gen2 |
+| サイズ | デフォルト |
+| ユーザー名 | 仮想マシンの管理者アカウント名 |
+| パスワード | 管理者アカウントのパスワード |
+| パブリック受信ポート | なし |
+
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/ff6ec0c9-1363-42e8-aec9-22ae8346abd2" /><br><br>
+
+ネットワークタブにて、下記の通り入力する
+| 項目 | 入力方法 |
+| -- | -- |
+| 仮想ネットワーク | Spokeの仮想ネットワーク |
+| サブネット | Spokeの仮想ネットワーク内の作成するサブネット名 |
+| パブリック IP | 任意の仮想マシン名 |
+| NIC ネットワーク セキュリティ グループ | Basic |
+| パブリック受信ポート | なし |
+
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/a4b6905c-2fab-4523-bb41-64c914579c50" /><br><br>
+
+確認及び作成で、作成を押下する<br>
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/0c22164b-3b8f-46b4-a3f7-62b69f7e212d" /><br><br>
+
+仮想マシンにBastionを使用してログイン
+作製した仮想マシンをAzure Portalで開き、接続→Bastonを押下する
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/1281a975-e2dd-4f0c-8a85-d08db0c23839" />
+
+作成時に入力したユーザ名とパスワードを入力して、接続する
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/e0640044-79cc-4331-806d-c34023b17f5c" />
+
+自動的にBastionがデプロイされ、接続される<br>
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/b57e2bf7-ae31-495b-9558-2b56dd1976a2" /><br><br>
+
+既定の設定では、仮想マシンから既定のブラウザにアクセスできる。セキュリティ上は脆弱である<br>
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/54884688-b80f-486f-a994-6fb53770d069" /><br>
+
+</div></details>
+
+<br>
+
+
+## Hub環境との接続
+
+<details><summary>詳細を見る</summary><div>
+
+作製したSpoke環境の仮想ネットワークを開き、「ピアリング」→「追加」を押下する
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/de79cd1e-036a-46a6-ad25-9dce658cbca1" /><br><br>
+
+リモート仮想ネットワークの概要を以下の通り入力する<br>
+※　相手先(Hub環境側)から見た設定です。<br>
+
+| 項目 | 入力方法 |
+| -- | -- |
+| ピアリング リンクの名前 | ピアリング名<br>例：peer-hub-prod-toSpoke1-01 |
+| サブスクリプション | 相手先(Hub環境)のサブスクリプション |
+| 仮想ネットワーク | 相手先(Hub環境)の仮想ネットワーク名 |
+
+<br>
+リモート仮想ネットワーク ピアリングの設定を以下の通りとする
+
+| 項目 | 入力方法 |
+| -- | -- |
+| 'vnet-hub-prod-network-01' に 'vnet-Spoke1-prod-network-01' へのアクセスを許可する | 〇 |
+| 'vnet-Spoke1-prod-network-01' からのトラフィック転送の受信を 'vnet-hub-prod-network-01' に許可する' | 〇 |
+| 'vnet-hub-prod-network-01' 内のゲートウェイまたはルート サーバーに 'vnet-Spoke1-prod-network-01' へのトラフィックの転送を許可する | × |
+| 'vnet-Spoke1-prod-network-01' のリモート ゲートウェイまたはルート サーバーを使用するために 'vnet-hub-prod-network-01' を有効にする | × |
+
+
+<br>
+ローカル仮想ネットワークの概要<br>
+※　Spoke環境から見た設定です
+
+| 項目 | 入力方法 |
+| -- | -- |
+| ピアリング リンクの名前 | ピアリング名<br>例：peer-Spoke1-prod-toHub-01 |
+
+<br>
+
+ローカル仮想ネットワーク ピアリングの設定
+
+| 項目 | 入力方法 |
+| -- | -- |
+| 'vnet-Spoke1-prod-network-01' に 'vnet-hub-prod-network-01' へのアクセスを許可する | 〇 |
+| 'vnet-hub-prod-network-01' からのトラフィック転送の受信を 'vnet-Spoke1-prod-network-01' に許可する | × |
+| 'vnet-Spoke1-prod-network-01' 内のゲートウェイまたはルート サーバーに 'vnet-hub-prod-network-01' へのトラフィックの転送を許可する | × |
+| 'vnet-hub-prod-network-01' のリモート ゲートウェイまたはルート サーバーを使用するために 'vnet-Spoke1-prod-network-01' を有効にする | × |
+
+### ルーティングの設定
+rootテーブルの作製
+Azure Portalでルート テーブルを検索し、作成を押下する
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/b5d31e1d-2aa5-484d-8671-a9cd55e81329" />
+
+以下の通り入力して作成する
+| 項目 | 入力方法 |
+| -- | -- |
+| サブスクリプション | Spoke環境のリソースグループのあるサブスクリプション |
+| リソース グループ | Spokeの仮想ネットワークのあるリソースグループ |
+| Name | ルートテーブル名 |
+| Propagate gateway routes | No |
+| リージョン | 仮想ネットワークと同じリージョン |
+
+<br>
+
+</div></details>
+
+## Azure Firewallを経由するルートテーブルの作製
+
+<details><summary>詳細を見る</summary><div>
+
+作製したルートテーブルにて、「設定」→「ルート」より、「追加」を押下し、以下の通り作成する
+※　ネクストホップをHub環境のAzureFirewallに指定します
+| 項目 | 入力方法 |
+| -- | -- |
+| ルート名 | default |
+| 宛先の種類 | IP アドレス |
+| ネクスト ホップの種類 | 仮想アプライアンス |
+| Propagate gateway routes | No |
+| ネクスト ホップ アドレス | Azure FirewallのプライベートIPアドレス |
+
+Spoke環境のサブネットにルートテーブルを関連付け
+作製したルートテーブルにて、「設定」→「サブネット」より、「関連付け」を押下し、Spoke環境のVMがあるサブネットを選択してOKする<br>
+<img width="961" height="516" alt="image" src="https://github.com/user-attachments/assets/fe82944b-e74a-414b-acdf-6b80054b4ba4" /><br><br>
+
+この状態でVM内からブラウザでGoogleを開こうとすると、接続できなくなる<br>
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/26adc189-aae0-4301-b22c-99584c72f670" /><br><br>
+
+</div></details>
+
+## AzureFirewallの穴あけ
+
+<details><summary>詳細を見る</summary><div>
+
+Azure Portalで、「Firewalls」と検索する<br>
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/0f936461-19f8-4d38-86f8-7c54221b95bb" /><br><br>
+
+「Azure Firewal」から、Hub環境のAzure Firewallを選択する<br>
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/2fb96b2c-d18a-493b-9502-450e8e8b6c35" /><br><br>
+
+「Firewall Policy」から、AzureFirewallポリシーを押下する<br>
+※　ここにルールが設定されます<br>
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/e4574b5b-1a63-4e16-bdb0-13bedf0798f0" /><br><br>
+
+「Rule」→「アプリケーション規則」→「規則コレクションの作製」を押下する
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/cb86d325-48d5-4376-af12-566007bee758" /><br><br>
+
+規則コレクションの情報と、許可する宛先のルールを入力して追加する<br>
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/ad214327-4103-4602-b6b3-7c9e3b10af75" /><br><br>
+
+ルールが作成されたことを確認する。
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/d3a2d3ae-b72f-43f5-bc26-a656fd7dfb92" /><br><br>
+
+再度VMからgoogle.comをブラウザで開けることを確認する
+<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/e7e4fcc7-b5f4-41f5-ac62-65d1e509709d" />
+
+</div></details>
