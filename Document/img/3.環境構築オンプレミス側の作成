@@ -3,8 +3,9 @@
 <details><summary>詳細を見る</summary><div>
 
 ## Spoke環境用のリソースグループの作成<br>
-Azure Portalから「リソース グループ」と検索し、「作成」を押下する<br>
-<img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/0df90f7d-fd46-4b96-b001-b76bd2fbdab0" /><br><br>
+Azure Portalから「リソース グループ」と検索し、「作成」を押下する
+
+
 
 サブスクリプション名、リソースグループ名、作成するリージョンを入力して、作成する<br>
 <img width="960" height="516" alt="image" src="https://github.com/user-attachments/assets/5d1a16a0-b7e0-43a3-a563-2afa3b9edb3c" /><br>
