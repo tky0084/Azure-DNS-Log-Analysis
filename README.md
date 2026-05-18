@@ -27,6 +27,8 @@ Azure のDNS Private Resolverのログを取得する
 - プライベート名前解決は、Azure からの要求も含め、すべてこの Active Directory で実施する。
 - Azure 側ネットワークとは VPN Gateway で接続する。
 
+![alt text](architecture.png)
+
 ## 環境構築
 
 ## Log Analytics ワークスペースから DNS クエリログを確認する
