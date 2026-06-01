@@ -8,6 +8,8 @@ Azure のDNS Private Resolverのログを取得する
 - そのため、Azure のネットワークトラブルシューティングにおいて、名前解決の観点での調査が困難になる可能性がある。
 - 本記事では、その原因と対策について記載する。
 
+<br>
+
 ## 想定するネットワーク環境
 ### 全体構成
 今回は、Azure の Hub & Spoke で構成されたネットワークと、疑似的なオンプレミス環境を模したネットワークが接続された構成を想定する。
@@ -29,7 +31,18 @@ Azure のDNS Private Resolverのログを取得する
 
 ![alt text](/img/architecture.png)
 
+<br>
+
 ## 環境構築
+
+- [1.環境構築Azure側(Hub)の作成.md](https://github.com/tky0084/Azure-DNS-Log-Analysis/blob/main/Document/1.%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89Azure%E5%81%B4(Hub)%E3%81%AE%E4%BD%9C%E6%88%90.md)
+- [2.環境構築Azure側(Spoke)の作成.md](https://github.com/tky0084/Azure-DNS-Log-Analysis/blob/main/Document/2.%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89Azure%E5%81%B4(Spoke)%E3%81%AE%E4%BD%9C%E6%88%90.md)
+- [3.環境構築オンプレミス側の作成.md](https://github.com/tky0084/Azure-DNS-Log-Analysis/blob/main/Document/3.%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%83%9F%E3%82%B9%E5%81%B4%E3%81%AE%E4%BD%9C%E6%88%90.md)
+- [4.環境構築各種ネットワークの接続.md](https://github.com/tky0084/Azure-DNS-Log-Analysis/blob/main/Document/4.%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E5%90%84%E7%A8%AE%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%81%AE%E6%8E%A5%E7%B6%9A.md)
+- [5.環境構築ActiveDirectoryの構成.md](https://github.com/tky0084/Azure-DNS-Log-Analysis/blob/main/Document/5.%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89ActiveDirectory%E3%81%AE%E6%A7%8B%E6%88%90.md)
+- [6.環境構築ログの設定.md](https://github.com/tky0084/Azure-DNS-Log-Analysis/blob/main/Document/6.%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E3%83%AD%E3%82%B0%E3%81%AE%E8%A8%AD%E5%AE%9A.md)
+
+<br>
 
 ## Log Analytics ワークスペースから DNS クエリログを確認する
 
