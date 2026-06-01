@@ -27,7 +27,7 @@ Azure のDNS Private Resolverのログを取得する
 - プライベート名前解決は、Azure からの要求も含め、すべてこの Active Directory で実施する。
 - Azure 側ネットワークとは VPN Gateway で接続する。
 
-![alt text](architecture.png)
+![alt text](/img/architecture.png)
 
 ## 環境構築
 
@@ -36,7 +36,7 @@ Azure のDNS Private Resolverのログを取得する
 Spoke 環境の仮想マシンに接続し、PowerShell から `Resolve-DnsName` コマンドで作成したドメインの名前解決を実行する。  <br>
 ドメインに 2 台の AD サーバーが紐づいていることが確認できる。
 
-![alt text](<スクリーンショット 2026-05-06 001410.png>)
+![alt text](</img/スクリーンショット 2026-05-06 001410.png>)
 
 <br>
 
@@ -48,7 +48,7 @@ DNSQueryLogs
 | project TimeGenerated, OperationName, QueryType, SourceIpAddress, DestinationIpAddress
 ```
 
-![alt text](<スクリーンショット 2026-05-06 010750.png>)
+![alt text](</img/スクリーンショット 2026-05-06 010750.png>)
 
 <br>
 
@@ -64,7 +64,7 @@ DNSQueryLogs
 DNS 転送ルールセットの設定を変更し、フォワード先からセカンダリ AD サーバーを削除する。<br>
 作成したルールを「編集」し、セカンダリ AD サーバーを削除して保存する。
 
-![alt text](<スクリーンショット 2026-05-06 010854.png>)
+![alt text](</img/スクリーンショット 2026-05-06 010854.png>)
 
 ### 【結果】
 再度、Spoke 仮想マシンから名前解決を実行し、Log Analytics ワークスペースでログを確認する。<br>
@@ -72,7 +72,7 @@ DNS 転送ルールセットの設定を変更し、フォワード先からセ�
 一方、クエリ結果として `test.co.jp` は、依然としてプライマリおよびセカンダリの AD サーバーに紐づいている。<br>
 このことから、AD サーバーを廃止する場合などは、元の DNS サーバー（オンプレミス側）のレコードからセカンダリ情報を削除する必要がある。<br>
 
-![alt text](<スクリーンショット 2026-05-06 011251.png>)
+![alt text](</img/スクリーンショット 2026-05-06 011251.png>)
 
 ---
 
@@ -88,14 +88,14 @@ DNS 転送ルールセットの設定を変更し、フォワード先からセ�
 プライマリ AD サーバーに接続し、Server Manager の右上から「Tools」→「DNS」を開く。<br>
 ドメイン内の「same as parent folder」にある、セカンダリ AD サーバーの IP アドレスが設定されたレコードを右クリックし、「Delete」を選択して削除する。
 
-![alt text](<スクリーンショット 2026-05-06 021622.png>)
+![alt text](</img/スクリーンショット 2026-05-06 021622.png>)
 
 <br>
 
 再度、Spoke の VM から名前解決を実行し、ログを確認する。<br>
 名前解決結果として、プライマリサーバーのみが紐づき、セカンダリサーバーの紐づけが削除されたことが確認できる。
 
-![alt text](<スクリーンショット 2026-05-06 021803.png>)
+![alt text](</img/スクリーンショット 2026-05-06 021803.png>)
 
 ---
 
